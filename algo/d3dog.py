@@ -1,3 +1,5 @@
+import unittest
+
 '''
 Pad for Asiya Shakhmametova - Software Engineer - Backend Generalist
 
@@ -43,10 +45,63 @@ for the ex. d300dog it gives:
 
 '''
 
+from curses.ascii import isdigit
+
+
 class Solution:
     def validate_string(self, pattern: str, word: str)->bool:
+        p_pattern = p_word = 0
+
+        while p_pattern < len(pattern) and p_word < len(word):
+            if word[p_word] == pattern[p_pattern]:
+                p_pattern += 1
+                p_word += 1
+                continue
+            if pattern[p_pattern].isdigit() == False and word[p_word] != pattern[p_pattern]:
+                # mismatch, return false
+                return False
+            # digit in the pattern
+            current_number_digits = []
+            while p_pattern<len(pattern) and pattern[p_pattern].isdigit():
+                current_number_digits.append(pattern[p_pattern])
+                p_pattern += 1
+            chars_to_skip = int(''.join(current_number_digits))
+            p_word += chars_to_skip
+            
+
+        if p_pattern != len(pattern) or p_word != len(word):
+            return False
+
         return True
 
-solution = Solution()
-print(solution.validate_string("d3dog", "datadog"))
-print(solution.validate_string("d3dog", "datadogs"))
+class D3Test(unittest.TestCase):
+    def test_case1(self):
+        solution = Solution()
+        self.assertTrue(solution.validate_string("d3dog", "datadog"))
+
+    def test_case3(self):
+        solution = Solution()
+        self.assertFalse(solution.validate_string("d3dog", "dtadog"))
+
+    def test_case4(self):
+        solution = Solution()
+        self.assertFalse(solution.validate_string("d3dog", "datadogs"))
+
+    def test_case5(self):
+        solution = Solution()
+        self.assertTrue(solution.validate_string("3", "aaa"))
+
+    def test_case6(self):
+        solution = Solution()
+        self.assertTrue(solution.validate_string("datadog", "datadog"))
+
+    def test_case7(self):
+        solution = Solution()
+        self.assertTrue(solution.validate_string("d1t2og", "datadog"))
+
+    def test_case_number(self):
+        solution = Solution()
+        self.assertTrue(solution.validate_string("d10g", "daaaaaaaaaag"))
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
