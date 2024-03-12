@@ -88,8 +88,8 @@ def solution(input):
     result = {(N*bucket_size, N*bucket_size+bucket_size-1):[] for N in range(buckets_number)}
     
     if buckets_number == 1:
-    	result[result.keys()[0]] = [num for num in nums]
-        return result
+      result[result.keys()[0]] = [num for num in nums]
+      return result
     
     for num in nums:
       bucket_number = num // bucket_size
@@ -102,7 +102,7 @@ def solution(input):
 
     return result
   
-  run solution(input)
+#run solution(input)
     
   
 '''
@@ -119,3 +119,4 @@ class BukcetTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+'''
