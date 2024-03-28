@@ -45,8 +45,6 @@ for the ex. d300dog it gives:
 
 '''
 
-from curses.ascii import isdigit
-
 
 class Solution:
     def validate_string(self, pattern: str, word: str)->bool:
